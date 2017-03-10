@@ -2,15 +2,11 @@ package main
 
 import "os"
 import "io"
+import "io/ioutil"
 import "fmt"
 import "encoding/json"
 import "strings"
 
-// bytes, err := ioutil.ReadAll(os.Stdin)
-// if err != nil {
-//     fmt.Println("Error when reading stdin", err)
-//     return
-// }
 
 type Emoji struct {
     Emoji, Description, Category, Unicode_version, Ios_version string
@@ -40,11 +36,39 @@ func load_emojis() []Emoji {
 
 }
 
-func getData() string{
-    return "hello :+1: world :fr:"
+func hasDataToReadFromStdin()bool {
+    stat, _ := os.Stdin.Stat()
+    if (stat.Mode() & os.ModeCharDevice) == 0 {
+        return true
+    }
+    return false
+}
+
+func getData() string {
+
+    bytes, err := ioutil.ReadAll(os.Stdin)
+    if err != nil {
+        fmt.Println("Error when reading stdin", err)
+        return ""
+
+    }
+    return string(bytes)
+}
+
+func printUsage() {
+    print("goEmoji")
+    print("-------")
+    print("Just pip me!")
+    print("")
+    print("echo 'hello world :tada:' | emo")
 }
 
 func main() {
+
+    if hasDataToReadFromStdin() == false {
+        printUsage()
+        return
+    }
 
     data := getData()
 
