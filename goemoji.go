@@ -74,11 +74,9 @@ func main() {
         return
     }
 
-    var suffix string
+    var suffix string = os.Getenv("GOEMOJI_SUFFIX") // by default, it's ""
     if len(os.Args) >= 2 {
         suffix = os.Args[1]
-    } else {
-        suffix = ""
     }
 
     data := getData()
