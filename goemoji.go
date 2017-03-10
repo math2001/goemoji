@@ -8,7 +8,7 @@ import "encoding/json"
 import "strings"
 import "path/filepath"
 import "runtime"
-
+import "github.com/shiena/ansicolor"
 
 type Emoji struct {
     Emoji, Description, Category, Unicode_version, Ios_version string
@@ -52,9 +52,7 @@ func getData() string {
 
     bytes, err := ioutil.ReadAll(os.Stdin)
     if err != nil {
-        fmt.Println("Error when reading stdin", err)
-        return ""
-
+        panic(err)
     }
     return string(bytes)
 }
@@ -75,6 +73,7 @@ func main() {
         printUsage()
         return
     }
+
     var suffix string
     if len(os.Args) >= 2 {
         suffix = os.Args[1]
@@ -91,6 +90,6 @@ func main() {
         }
     }
 
-    print(data)
-
+    writer := ansicolor.NewAnsiColorWriter(os.Stdout)
+    fmt.Fprint(writer, data)
 }
