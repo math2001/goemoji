@@ -14,7 +14,7 @@ type Emoji struct {
 }
 
 func load_emojis() []Emoji {
-    stream, err := os.Open("emoji.json")
+    stream, err := os.Open("emojis.json")
     if err != nil {
         panic(err)
     }
