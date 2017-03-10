@@ -6,6 +6,8 @@ import "io/ioutil"
 import "fmt"
 import "encoding/json"
 import "strings"
+import "path/filepath"
+import "runtime"
 
 
 type Emoji struct {
@@ -14,7 +16,12 @@ type Emoji struct {
 }
 
 func load_emojis() []Emoji {
-    stream, err := os.Open("emojis.json")
+
+    _, fileName, _, _ := runtime.Caller(1)
+    fileName, _ = filepath.Abs(filepath.Dir(fileName))
+    fileName = filepath.Join(fileName, "emojis.json")
+
+    stream, err := os.Open(fileName)
     if err != nil {
         panic(err)
     }
