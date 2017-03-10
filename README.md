@@ -19,6 +19,7 @@ Now, you can do
 
 ```
 $ echo 'I :heart: code' | goemoji
+I ❤ code
 ```
 
 You can also build it yourself, it's simple:
