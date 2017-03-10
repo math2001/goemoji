@@ -44,11 +44,8 @@ func load_emojis() []Emoji {
 }
 
 func hasDataToReadFromStdin()bool {
-    stat, _ := os.Stdin.Stat()
-    if (stat.Mode() & os.ModeCharDevice) == 0 {
-        return true
-    }
-    return false
+    fi, err := os.Stdin.Stat()
+    return err == nil && (fi.Mode() & os.ModeCharDevice) == 0
 }
 
 func getData() string {
@@ -63,11 +60,13 @@ func getData() string {
 }
 
 func printUsage() {
-    print("goEmoji")
-    print("-------")
-    print("Just pip me!")
-    print("")
-    print("echo 'hello world :tada:' | emo")
+    fmt.Println("goEmoji")
+    fmt.Println("-------")
+    fmt.Println("Just pip me!")
+    fmt.Println("")
+    fmt.Println("$ echo 'hello world :tada:' | goemoji")
+    fmt.Println("")
+    fmt.Println("→ README.md for more info")
 }
 
 func main() {
@@ -76,13 +75,19 @@ func main() {
         printUsage()
         return
     }
+    var suffix string
+    if len(os.Args) >= 2 {
+        suffix = os.Args[1]
+    } else {
+        suffix = ""
+    }
 
     data := getData()
 
     emojis := load_emojis()
     for _, emoji := range emojis {
         for _, alias := range emoji.Aliases {
-            data = strings.Replace(data, ":" + alias + ":", emoji.Emoji, -1)
+            data = strings.Replace(data, ":" + alias + ":", emoji.Emoji + suffix, -1)
         }
     }
 
