@@ -37,9 +37,12 @@ $ go build goemoji.go
 
 ### Add a suffix
 
-I'm on Windows, and I'm using Hyper. At this time, Hyper has a bug, emoji take too much room, which
-"eat" the following char. The solution to prevent this is to add a space just after (so that it
+I'm on Windows, and I'm using Hyper. ~~At this time, Hyper has a bug, emoji take too much room, which
+"eat" the following char~~. The solution to prevent this is to add a space just after (so that it
 eats the space).
+
+*Note: this bug has been fixed in the version* `1.3.1` *of Hyper. But I'll leave this feature, it*
+*might be useful for some people*.
 
 So, you can specify a suffix by passing it as an argument:
 
