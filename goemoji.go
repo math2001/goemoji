@@ -58,11 +58,12 @@ func getData() string {
 }
 
 func printUsage() {
-    fmt.Println("goEmoji")
+    fmt.Println("goemoji")
     fmt.Println("-------")
-    fmt.Println("Just pip me!")
+    fmt.Println("Just pipe me!")
     fmt.Println("")
     fmt.Println("$ echo 'hello world :tada:' | goemoji")
+    fmt.Println("hello world 🎉")
     fmt.Println("")
     fmt.Println("→ README.md for more info")
 }
